@@ -1,8 +1,8 @@
-name: Ghcr.io Cleanup Action
+name: ghcr.io Vacuum Action
 
 description: >
-  Delete untagged/tagged images from the GitHub Container Registry. Supports
-  multi-architecture and attestation images.
+  Vacuum stale GHCR images with flexible retention for tagged, untagged,
+  multi-arch, and attestation artifacts.
 
 author: Dataaxiom Inc
 
