@@ -1,0 +1,32 @@
+diff --git a/node_modules/follow-redirects/index.js b/node_modules/follow-redirects/index.js
+index 3d32523..77fd714 100644
+--- a/node_modules/follow-redirects/index.js
++++ b/node_modules/follow-redirects/index.js
+@@ -577,24 +577,12 @@ function wrap(protocols) {
+ function noop() { /* empty */ }
+ 
+ function parseUrl(input) {
+-  var parsed;
+-  // istanbul ignore else
+-  if (useNativeURL) {
+-    parsed = new URL(input);
+-  }
+-  else {
+-    // Ensure the URL is valid and absolute
+-    parsed = validateUrl(url.parse(input));
+-    if (!isString(parsed.protocol)) {
+-      throw new InvalidUrlError({ input });
+-    }
+-  }
+-  return parsed;
++  // Always rely on the WHATWG URL parser to avoid legacy url.parse deprecations.
++  return validateUrl(new URL(input));
+ }
+ 
+ function resolveUrl(relative, base) {
+-  // istanbul ignore next
+-  return useNativeURL ? new URL(relative, base) : parseUrl(url.resolve(base, relative));
++  return new URL(relative, base);
+ }
+ 
+ function validateUrl(input) {
