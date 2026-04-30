@@ -15,8 +15,8 @@ module.exports = [
       '**/coverage/**',
       '**/*.json',
       '**/.*',
-      'eslint.config.cjs',
-    ],
+      'eslint.config.cjs'
+    ]
   },
   js.configs.recommended,
   githubPlugin.getFlatConfigs().recommended,
@@ -30,16 +30,16 @@ module.exports = [
       sourceType: 'module',
       parserOptions: {
         project: ['./.github/linters/tsconfig.json', './tsconfig.json'],
-        tsconfigRootDir: __dirname,
-      },
+        tsconfigRootDir: __dirname
+      }
     },
     settings: {
       'import/resolver': {
         typescript: {
           alwaysTryTypes: true,
-          project: './.github/linters/tsconfig.json',
-        },
-      },
+          project: './.github/linters/tsconfig.json'
+        }
+      }
     },
     rules: {
       'import/named': 0,
@@ -57,11 +57,11 @@ module.exports = [
       '@typescript-eslint/consistent-type-assertions': 'error',
       '@typescript-eslint/explicit-member-accessibility': [
         'error',
-        { accessibility: 'no-public' },
+        { accessibility: 'no-public' }
       ],
       '@typescript-eslint/explicit-function-return-type': [
         'warn',
-        { allowExpressions: true },
+        { allowExpressions: true }
       ],
       'func-call-spacing': ['error', 'never'],
       '@typescript-eslint/no-array-constructor': 'error',
@@ -81,7 +81,7 @@ module.exports = [
       '@typescript-eslint/prefer-includes': 'error',
       '@typescript-eslint/prefer-string-starts-ends-with': 'error',
       'no-shadow': 'off',
-      '@typescript-eslint/no-shadow': ['error'],
-    },
-  },
+      '@typescript-eslint/no-shadow': ['error']
+    }
+  }
 ]
