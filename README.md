@@ -1,4 +1,4 @@
-# GitHub Container Registry Image Cleanup Action
+# GitHub Container Registry Image Vacuum Action
 
 [![GitHub Super-Linter](https://github.com/dataaxiom/ghcr-cleanup-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
 ![CI](https://github.com/dataaxiom/ghcr-cleanup-action/actions/workflows/ci.yml/badge.svg)
@@ -69,10 +69,10 @@ To get started add an action definition to a workflow file.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           dry-run: true
 ```
@@ -149,10 +149,10 @@ repository.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           delete-tags: mytag*,dev # same as tags: mytag*,dev
 ```
@@ -183,10 +183,10 @@ could still be untagged packages showing in GitHub.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           delete-untagged: true
 ```
@@ -208,10 +208,10 @@ Tag values can additionaly be expressed in the sha256 digest string format.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           exclude-tags: dev,latest,pr*
           keep-n-tagged: 10
@@ -233,10 +233,10 @@ for more information.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           older-than: 1 year
           keep-n-tagged: 10
@@ -255,10 +255,10 @@ option first to identify the images which are not valid.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           delete-ghost-images: true
 ```
@@ -286,7 +286,7 @@ jobs:
   - name: ghcr cleanup action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           keep-n-untagged: 3
 ```
@@ -305,7 +305,7 @@ jobs:
   - name: ghcr cleanup action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           keep-n-tagged: 3
 ```
@@ -332,10 +332,10 @@ both `write:packages` and `delete:packages` scopes.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           token: ${{ secrets.MY_PAT }}
 ```
@@ -347,10 +347,10 @@ packages to operate on.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           packages: myimage1,myimage2
 ```
@@ -360,10 +360,10 @@ for the token.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           packages: myimage*,someotherimage
           expand-packages: true
@@ -375,10 +375,10 @@ option to be set to true.
 
 ```yaml
 jobs:
-  - name: ghcr.io cleanup action
+  - name: ghcr.io vacuum action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           packages: '^myimage[12]$'
           expand-packages: true
@@ -400,7 +400,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Clean up docker images'
-        uses: dataaxiom/ghcr-cleanup-action@v1
+        uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           dry-run: true
           keep-n-tagged: 10
@@ -421,7 +421,7 @@ cleanup-images:
   concurrency:
     group: cleanup-images
   steps:
-    - uses: dataaxiom/ghcr-cleanup-action@v1
+    - uses: vndroid/ghcr-io-vacuum-action@v1
       with:
         packages: 'tiecd/k8s'
         delete-tags: '*-rc*'
@@ -441,7 +441,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete image
-        uses: dataaxiom/ghcr-cleanup-action@v1
+        uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           delete-tags: pr-${{github.event.pull_request.number}}
 ```
@@ -461,7 +461,7 @@ jobs:
     name: ghcr cleanup action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
 ```
 
 ### Override default owner/repository/package
@@ -478,7 +478,7 @@ jobs:
   - name: ghcr cleanup action
     runs-on: ubuntu-latest
     steps:
-      - uses: dataaxiom/ghcr-cleanup-action@v1
+      - uses: vndroid/ghcr-io-vacuum-action@v1
         with:
           owner: dataaxiom
           repository: tiecd
@@ -537,7 +537,7 @@ cleanup-images:
   concurrency:
     group: cleanup-images
   steps:
-    - uses: dataaxiom/ghcr-cleanup-action@v1
+    - uses: vndroid/ghcr-io-vacuum-action@v1
 ```
 
 ### Validate Option
