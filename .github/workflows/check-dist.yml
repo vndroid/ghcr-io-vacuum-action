@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   check-dist:
-    name: Check dist/
+    name: Check 'dist/' Directory
     runs-on: ubuntu-24.04
 
     steps:
@@ -57,10 +57,10 @@ jobs:
 
       # If `dist/` was different than expected, upload the expected version as a
       # workflow artifact.
-      - if: ${{ failure() && steps.diff.outcome == 'failure' }}
+      - if: ${{ failure() && steps.diff-dist.outcome == 'failure' }}
         name: Upload Artifact
         id: upload-dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
@@ -69,6 +69,7 @@ jobs:
       # expected.
       - name: Compare citester Directories
         id: diff-citester
+        if: always()
         run: |
           if [ ! -d citester/ ]; then
             echo "Expected citester/ directory does not exist.  See status below:"
@@ -82,10 +83,10 @@ jobs:
           fi
       # If `citester/` was different than expected, upload the expected version as a
       # workflow artifact.
-      - if: ${{ failure() && steps.diff.outcome == 'failure' }}
+      - if: ${{ failure() && steps.diff-citester.outcome == 'failure' }}
         name: Upload Artifact
         id: upload-citester
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: citester
           path: citester/
