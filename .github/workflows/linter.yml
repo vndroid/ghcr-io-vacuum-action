@@ -45,3 +45,4 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: false
           VALIDATE_GIT_COMMITLINT: false
           VALIDATE_JSCPD: false
+          VALIDATE_PYTHON_BLACK: false
