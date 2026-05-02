@@ -311,7 +311,7 @@ jobs:
         run: |
           node citester/index.js --token ${{ secrets.GITHUB_TOKEN }} \
             --directory tests/${{ matrix.tests.folder }} \
-            --mode prime --delay $DELAY
+            --mode prime --delay "$DELAY"
 
       - name: ' > Running Workflow'
         uses: ./
@@ -507,7 +507,7 @@ jobs:
 
       - name: Sign container image
         run: |
-          cosign sign -y $REGISTRY/$REPOSITORY:cosign
+          cosign sign -y "$REGISTRY"/"$REPOSITORY":cosign
         env:
           TAGS: cosign
           COSIGN_EXPERIMENTAL: false
@@ -701,7 +701,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: shared-image-untagged-test
     env:
-      GHCR_PAT: ${{secrets.GHCR_PAT}}
+      GHCR_PAT: ${{ secrets.GHCR_PAT }}
     permissions:
       contents: read
 
