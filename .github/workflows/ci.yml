@@ -2,6 +2,12 @@ name: Integration Tests
 
 on:
   push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'dist/**'
+      - 'citester/**'
 
 permissions:
   contents: read
@@ -305,7 +311,7 @@ jobs:
         run: |
           node citester/index.js --token ${{ secrets.GITHUB_TOKEN }} \
             --directory tests/${{ matrix.tests.folder }} \
-            --mode prime --delay ${{ env.DELAY }}
+            --mode prime --delay $DELAY
 
       - name: ' > Running Workflow'
         uses: ./
@@ -501,10 +507,11 @@ jobs:
 
       - name: Sign container image
         run: |
-          cosign sign -y ${{ env.REGISTRY }}/${{ steps.lower-repo.outputs.repository }}:cosign
+          cosign sign -y $REGISTRY/$REPOSITORY:cosign
         env:
           TAGS: cosign
           COSIGN_EXPERIMENTAL: false
+          REPOSITORY: ${{ steps.lower-repo.outputs.repository }}
 
       - name: Run Test - Cosign
         uses: ./
